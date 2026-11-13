@@ -31,6 +31,23 @@ thumbnail: "/images/old.png"
 Older body.
 `;
 
+const UNDATED_MD = `---
+title: "Be datos"
+summary: "No date"
+topic: "Žinios"
+---
+
+Body.
+`;
+
+const IMAGE_MD = `---
+title: "Su nuotrauka"
+date: "2026-02-01"
+---
+
+![Avilys](/images/a.jpg)
+`;
+
 beforeEach(() => {
   vi.clearAllMocks();
 });
@@ -68,7 +85,7 @@ describe('readAllPosts', () => {
     vi.mocked(readdir).mockResolvedValue(['hello-world.md'] as any);
     vi.mocked(readFile).mockResolvedValue(SAMPLE_MD as any);
     const posts = await readAllPosts();
-    expect(posts[0].date).toBe('January 15, 2026');
+    expect(posts[0].date).toBe('2026 m. sausio 15 d.');
   });
 
   it('ignores non-markdown files', async () => {
@@ -85,6 +102,33 @@ describe('readAllPosts', () => {
       .mockRejectedValueOnce(new Error('ENOENT'));
     const posts = await readAllPosts();
     expect(posts).toHaveLength(1);
+  });
+
+  it('exposes isoDate', async () => {
+    vi.mocked(readdir).mockResolvedValue(['hello-world.md'] as any);
+    vi.mocked(readFile).mockResolvedValue(SAMPLE_MD as any);
+    const posts = await readAllPosts();
+    expect(posts[0].isoDate).toBe('2026-01-15');
+  });
+
+  it('sorts undated posts last without crashing', async () => {
+    vi.mocked(readdir).mockResolvedValue(['undated.md', 'older-post.md', 'hello-world.md'] as any);
+    vi.mocked(readFile)
+      .mockResolvedValueOnce(UNDATED_MD as any)
+      .mockResolvedValueOnce(SAMPLE_MD_2 as any)
+      .mockResolvedValueOnce(SAMPLE_MD as any);
+    const posts = await readAllPosts();
+    expect(posts.map(p => p.slug)).toEqual(['hello-world', 'older-post', 'undated']);
+    expect(posts[2].date).toBe('');
+    expect(posts[2].isoDate).toBe('');
+  });
+
+  it('wraps body images in a link to the full image', async () => {
+    vi.mocked(readdir).mockResolvedValue(['images.md'] as any);
+    vi.mocked(readFile).mockResolvedValue(IMAGE_MD as any);
+    const posts = await readAllPosts();
+    expect(posts[0].description).toContain('<a href="/images/a.jpg" class="post-image-link"');
+    expect(posts[0].description).toContain('<img src="/images/a.jpg" alt="Avilys" loading="lazy"');
   });
 
   it('converts markdown body to HTML', async () => {

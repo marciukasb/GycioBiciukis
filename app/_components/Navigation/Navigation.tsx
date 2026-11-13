@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITE_NAME } from "@/app/_data/meta";
+import { SITE_NAME } from "@/app/_data/site";
 import styles from "./Navigation.module.scss";
 
 const links = [

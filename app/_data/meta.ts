@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-
-export const SITE_NAME = "Gyčio Bičiūkis";
+import { SITE_NAME } from "./site";
 
 interface PageData {
   [key: string]: Metadata;
@@ -11,20 +10,16 @@ const pageData = {
     title: SITE_NAME,
     description: "",
   },
+  Posts: {
+    title: `Įrašai – ${SITE_NAME}`,
+    description: "",
+  },
   About: {
-    title: `${SITE_NAME} - About`,
-    description: "",
-  },
-  Blog: {
-    title: `${SITE_NAME} - Blog`,
-    description: "",
-  },
-  Contacts: {
-    title: `${SITE_NAME} - Contacts`,
+    title: `Apie – ${SITE_NAME}`,
     description: "",
   },
   404: {
-    title: "404 Page not found",
+    title: `Puslapis nerastas – ${SITE_NAME}`,
     description: "",
   },
 } as PageData;

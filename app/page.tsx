@@ -1,4 +1,5 @@
-import pageData, { SITE_NAME } from "./_data/meta";
+import pageData from "./_data/meta";
+import { SITE_NAME } from "./_data/site";
 
 const page = pageData["Home"];
 
