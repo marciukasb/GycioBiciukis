@@ -1,13 +1,19 @@
-
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
+  overflow-x: hidden;
   color: $ink;
-  background: $comb;
+  background: $paper;
+  font-size: 17px;
+  line-height: 1.6;
 }
 
 a {
@@ -15,26 +21,98 @@ a {
   text-decoration: none;
 }
 
+img {
+  max-width: 100%;
+}
+
 main {
   margin-left: auto;
   margin-right: auto;
   max-width: $sectionWidth;
-  min-height: 100vh;
-  padding: 140px 16px 48px;
+  min-height: 70vh;
+  padding: calc(#{$mobileNavHeight} + 24px) 16px 48px;
+
+  @include breakpoint-md {
+    padding: calc(#{$defaultNavHeight} + 32px) 32px 64px;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+.serif {
+  font-family: var(--font-serif), Georgia, serif;
+  line-height: 1.15;
+  color: $ink;
 }
 
 h1 {
-  margin-bottom: 32px;
-  font-size: 40px;
+  margin-bottom: 24px;
+  font-size: 34px;
   font-weight: 700;
 
   @include breakpoint-md {
-    font-size: 52px;
+    font-size: 48px;
   }
 }
 
 h2 {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 700;
+}
+
+.hand {
+  font-family: var(--font-hand), cursive;
+  color: $amber;
+  font-size: 1.3em;
+  line-height: 1.2;
+}
+
+// Shared styling for rendered Markdown (posts and About)
+.prose {
+  max-width: 720px;
+
+  p,
+  ul,
+  ol,
+  blockquote {
+    margin-bottom: 18px;
+  }
+
+  ul,
+  ol {
+    padding-left: 24px;
+  }
+
+  h2,
+  h3 {
+    margin: 32px 0 12px;
+  }
+
+  a {
+    color: $amber;
+    text-decoration: underline;
+  }
+
+  blockquote {
+    padding-left: 16px;
+    border-left: 3px solid $honey;
+    color: $inkSoft;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 2px 12px rgba($ink, 0.12);
+  }
+
+  .post-image-link {
+    display: block;
+    margin: 24px 0;
+    text-decoration: none;
+    cursor: zoom-in;
+  }
 }

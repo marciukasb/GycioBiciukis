@@ -3,16 +3,14 @@ import { SITE_NAME } from "@/app/_data/site";
 import styles from "./Navigation.module.scss";
 
 const links = [
-  { href: "/", name: "Home" },
-  { href: "/about", name: "About" },
-  { href: "/blog", name: "Blog" },
-  { href: "/contacts", name: "Contacts" },
+  { href: "/irasai", name: "Įrašai" },
+  { href: "/apie", name: "Apie" },
 ];
 
 const Navigation = () => {
   return (
     <nav className={styles.navigation}>
-      <Link href="/" className={styles.navigation__logo}>
+      <Link href="/" className={`${styles.navigation__name} serif`}>
         {SITE_NAME}
       </Link>
       <div className={styles.navigation__menu}>

@@ -7,27 +7,39 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   height: $mobileNavHeight;
   padding: 0 16px;
-  background: $comb;
-  border-bottom: 2px solid $honey;
+  background: rgba($paper, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid $line;
 
   @include breakpoint-md {
     height: $defaultNavHeight;
-    padding: 0 48px;
+    padding: 0 32px;
   }
 
-  &__logo {
+  &__name {
+    font-size: 19px;
     font-weight: 700;
-    font-size: 20px;
+    white-space: nowrap;
+
+    @include breakpoint-md {
+      font-size: 22px;
+    }
   }
 
   &__menu {
     display: flex;
-    gap: 16px;
+    gap: 20px;
+    font-weight: 700;
 
     @include breakpoint-md {
-      gap: 48px;
+      gap: 40px;
+    }
+
+    a:hover {
+      color: $amber;
     }
   }
 }

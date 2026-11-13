@@ -1,0 +1,17 @@
+.footer {
+  margin-top: 48px;
+  padding: 32px 16px;
+  background: darken($paper, 4%);
+  border-top: 2px solid $line;
+
+  &__inner {
+    max-width: $sectionWidth;
+    margin: 0 auto;
+  }
+
+  &__copy {
+    margin-top: 16px;
+    font-size: 14px;
+    color: $inkSoft;
+  }
+}
