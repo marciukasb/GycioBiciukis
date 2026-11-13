@@ -2,6 +2,7 @@ import { Caveat, Fraunces, Nunito } from "next/font/google";
 import "./globals.scss";
 import Navigation from "@/app/_components/Navigation/Navigation";
 import Footer from "@/app/_components/Footer/Footer";
+import Newsletter from "@/app/_components/Newsletter/Newsletter";
 import { SITE_NAME, SITE_URL } from "@/app/_data/site";
 
 const nunito = Nunito({ subsets: ["latin", "latin-ext"] });
@@ -25,7 +26,9 @@ export default function RootLayout({
       <body className={nunito.className}>
         <Navigation />
         {children}
-        <Footer />
+        <Footer>
+          <Newsletter />
+        </Footer>
       </body>
     </html>
   );

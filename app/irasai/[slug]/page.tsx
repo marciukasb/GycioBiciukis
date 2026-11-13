@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import BlogPost from "../../_components/BlogPost/BlogPost";
+import Newsletter from "../../_components/Newsletter/Newsletter";
 import PostNav from "../../_components/Posts/PostNav";
 import { SITE_NAME } from "../../_data/site";
 import { readAllPosts, readPostBySlug } from "../../utils/blog";
@@ -30,6 +31,7 @@ export default async function Post({ params }: PostProps) {
   return (
     <main>
       <BlogPost post={post} />
+      <Newsletter />
       <PostNav newer={newer} older={older} />
     </main>
   );
