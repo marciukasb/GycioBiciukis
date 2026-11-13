@@ -157,6 +157,39 @@ describe('front matter edge cases', () => {
   });
 });
 
+describe('photos', () => {
+  const read = async (frontMatter: string, body = 'T') => {
+    vi.mocked(readdir).mockResolvedValue(['p.md'] as any);
+    vi.mocked(readFile).mockResolvedValue(`---\n${frontMatter}\n---\n\n${body}\n` as any);
+    return (await readAllPosts())[0];
+  };
+
+  it('has no photos, thumbnail or gallery when none are given', async () => {
+    const post = await read('title: A');
+    expect(post).toMatchObject({ photos: [], thumbnail: '', galleryPhotos: [] });
+  });
+
+  it('uses the only photo as the cover', async () => {
+    const post = await read('photos:\n  - /images/a.jpg');
+    expect(post).toMatchObject({ photos: ['/images/a.jpg'], thumbnail: '/images/a.jpg', galleryPhotos: [] });
+  });
+
+  it('puts photos after the cover that are not in the text into the gallery', async () => {
+    const post = await read('photos:\n  - /images/a.jpg\n  - /images/b.jpg\n  - /images/c.jpg', '![](/images/b.jpg)');
+    expect(post.galleryPhotos).toEqual(['/images/c.jpg']);
+  });
+
+  it('still supports a legacy thumbnail field', async () => {
+    const post = await read('thumbnail: /images/t.jpg');
+    expect(post).toMatchObject({ photos: [], thumbnail: '/images/t.jpg' });
+  });
+
+  it('treats a single photos string as a one-item list', async () => {
+    const post = await read('photos: /images/a.jpg');
+    expect(post.photos).toEqual(['/images/a.jpg']);
+  });
+});
+
 describe('readPostBySlug', () => {
   it('returns null when file does not exist', async () => {
     vi.mocked(readFile).mockRejectedValue(new Error('ENOENT'));

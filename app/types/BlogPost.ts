@@ -7,4 +7,6 @@ export type BlogPost = {
   isoDate: string;
   topic: string;
   thumbnail: string;
+  photos: string[];
+  galleryPhotos: string[];
 };

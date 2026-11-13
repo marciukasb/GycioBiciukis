@@ -13,6 +13,8 @@ const post = (overrides: Partial<BlogPost> = {}): BlogPost => ({
   isoDate: '2026-01-15',
   topic: 'Statyba',
   thumbnail: '',
+  photos: [],
+  galleryPhotos: [],
   ...overrides,
 });
 

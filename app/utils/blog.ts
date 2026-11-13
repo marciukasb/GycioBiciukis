@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import { Marked } from 'marked';
 import type { BlogPost } from '../types/BlogPost';
 import { formatDate } from './index';
+import { galleryOutsideBody } from './photos';
 
 const BLOG_DIR = join(process.cwd(), 'app/_data/_blog');
 
@@ -29,11 +30,17 @@ function coerceDate(value: unknown): string {
 // YAML turns bare values like `title: 2025` into numbers; the site needs strings
 const text = (value: unknown) => (value === undefined || value === null ? '' : String(value).trim());
 
+function photoList(value: unknown): string[] {
+  const list = Array.isArray(value) ? value : value ? [value] : [];
+  return list.map(text).filter(Boolean);
+}
+
 function parsePost(slug: string, raw: string): BlogPost {
   // Passing options disables gray-matter's cache, which would otherwise return
   // empty data for a file whose front matter failed to parse the first time
   const { data, content } = matter(raw, {});
   const isoDate = coerceDate(data.date);
+  const photos = photoList(data.photos);
   return {
     slug,
     title: text(data.title),
@@ -42,7 +49,10 @@ function parsePost(slug: string, raw: string): BlogPost {
     date: formatDate(isoDate),
     isoDate,
     topic: text(data.topic),
-    thumbnail: text(data.thumbnail),
+    // The first gallery photo is the cover; older posts may still have a thumbnail field
+    thumbnail: photos[0] ?? text(data.thumbnail),
+    photos,
+    galleryPhotos: galleryOutsideBody(photos.slice(1), content),
   };
 }
 

@@ -30,12 +30,33 @@
           "type": "date"
         },
         {
-          "name": "thumbnail",
-          "type": "image"
+          "name": "photos",
+          "type": "gallery"
         },
         {
           "name": "body",
           "type": "markdown"
+        }
+      ]
+    }
+  ],
+  "singles": [
+    {
+      "name": "Bitynas skaičiais",
+      "file": "app/_data/stats.md",
+      "fields": [
+        {
+          "name": "aviliai",
+          "type": "number"
+        },
+        {
+          "name": "sodai",
+          "type": "number"
+        },
+        {
+          "name": "seimos",
+          "type": "number",
+          "label": "bičių šeimos"
         }
       ]
     }

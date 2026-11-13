@@ -11,6 +11,8 @@ const post = (slug: string, topic = 'Statyba'): BlogPost => ({
   isoDate: '',
   topic,
   thumbnail: '',
+  photos: [],
+  galleryPhotos: [],
 });
 
 const [a, b, c, d, e] = ['a', 'b', 'c', 'd', 'e'].map(s => post(s));
