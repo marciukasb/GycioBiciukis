@@ -26,18 +26,23 @@ function coerceDate(value: unknown): string {
   return value;
 }
 
+// YAML turns bare values like `title: 2025` into numbers; the site needs strings
+const text = (value: unknown) => (value === undefined || value === null ? '' : String(value).trim());
+
 function parsePost(slug: string, raw: string): BlogPost {
-  const { data, content } = matter(raw);
+  // Passing options disables gray-matter's cache, which would otherwise return
+  // empty data for a file whose front matter failed to parse the first time
+  const { data, content } = matter(raw, {});
   const isoDate = coerceDate(data.date);
   return {
     slug,
-    title: (data.title as string) ?? '',
-    summary: (data.summary as string) ?? '',
+    title: text(data.title),
+    summary: text(data.summary),
     description: markdown.parse(content) as string,
     date: formatDate(isoDate),
     isoDate,
-    topic: (data.topic as string) ?? '',
-    thumbnail: (data.thumbnail as string) ?? '',
+    topic: text(data.topic),
+    thumbnail: text(data.thumbnail),
   };
 }
 
@@ -48,15 +53,18 @@ export async function readAllPosts(): Promise<BlogPost[]> {
   } catch {
     return [];
   }
+  const markdownFiles = files.filter(f => f.endsWith('.md'));
   const results = await Promise.allSettled(
-    files
-      .filter(f => f.endsWith('.md'))
+    markdownFiles
       .map(async filename => {
         const slug = filename.replace(/\.md$/, '');
         const raw = await readFile(join(BLOG_DIR, filename), 'utf-8');
         return parsePost(slug, raw);
       })
   );
+  results.forEach((r, i) => {
+    if (r.status === 'rejected') console.warn(`Skipping post ${markdownFiles[i]}:`, r.reason);
+  });
   const posts = results
     .filter((r): r is PromiseFulfilledResult<BlogPost> => r.status === 'fulfilled')
     .map(r => r.value);

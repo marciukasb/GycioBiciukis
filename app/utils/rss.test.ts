@@ -24,7 +24,7 @@ describe('buildRss', () => {
 
   it('links each item to its post page', () => {
     const xml = buildRss([post()], SITE);
-    expect(xml).toContain('<link>https://gyciobiciukis.lt/irasai/sablonas</link>');
+    expect(xml).toContain('<link>https://gyciobiciukis.lt/irasai/sablonas/</link>');
   });
 
   it('includes an RFC-822 pubDate when the post has a date', () => {
@@ -40,6 +40,11 @@ describe('buildRss', () => {
     expect(buildRss([post({ thumbnail: '/images/a.jpg' })], SITE)).toContain(
       '<enclosure url="https://gyciobiciukis.lt/images/a.jpg" type="image/jpeg" length="0"/>'
     );
+  });
+
+  it('percent-encodes Lithuanian letters in post links', () => {
+    const xml = buildRss([post({ slug: 'šablonas' })], SITE);
+    expect(xml).toContain('<link>https://gyciobiciukis.lt/irasai/%C5%A1ablonas/</link>');
   });
 
   it('produces a valid empty channel with no posts', () => {

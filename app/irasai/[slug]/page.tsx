@@ -16,14 +16,17 @@ export async function generateStaticParams() {
   return posts.map(post => ({ slug: post.slug }));
 }
 
+// Next passes the slug URL-encoded (š → %C5%A1); files are named with the real letters
+const slugFromParams = (params: PostProps["params"]) => decodeURIComponent(params.slug);
+
 export async function generateMetadata({ params }: PostProps) {
-  const post = await readPostBySlug(params.slug);
+  const post = await readPostBySlug(slugFromParams(params));
   if (!post) return { title: SITE_NAME };
   return { title: `${post.title} – ${SITE_NAME}`, description: post.summary };
 }
 
 export default async function Post({ params }: PostProps) {
-  const post = await readPostBySlug(params.slug);
+  const post = await readPostBySlug(slugFromParams(params));
   if (!post) return notFound();
   const { newer, older } = adjacentPosts(await readAllPosts(), post.slug);
   return (

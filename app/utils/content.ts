@@ -18,7 +18,7 @@ function toNumber(value: unknown): number | null {
 
 export async function readStats(): Promise<Stats> {
   try {
-    const { data } = matter(await readFile(join(DATA_DIR, 'stats.md'), 'utf-8'));
+    const { data } = matter(await readFile(join(DATA_DIR, 'stats.md'), 'utf-8'), {});
     return { aviliai: toNumber(data.aviliai), sodai: toNumber(data.sodai), seimos: toNumber(data.seimos) };
   } catch {
     return { aviliai: null, sodai: null, seimos: null };
@@ -27,7 +27,7 @@ export async function readStats(): Promise<Stats> {
 
 export async function readAbout(): Promise<About> {
   try {
-    const { data, content } = matter(await readFile(join(DATA_DIR, 'about.md'), 'utf-8'));
+    const { data, content } = matter(await readFile(join(DATA_DIR, 'about.md'), 'utf-8'), {});
     return { html: markdown.parse(content) as string, photo: (data.photo as string) ?? '' };
   } catch {
     return { html: '', photo: '' };

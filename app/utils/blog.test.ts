@@ -139,6 +139,24 @@ describe('readAllPosts', () => {
   });
 });
 
+describe('front matter edge cases', () => {
+  it('keeps a title that is only a number as a string', async () => {
+    vi.mocked(readdir).mockResolvedValue(['skaicius.md'] as any);
+    vi.mocked(readFile).mockResolvedValue('---\ntitle: 2025\nsummary: 42\ndate: "2026-01-01"\n---\n\nT\n' as any);
+    const posts = await readAllPosts();
+    expect(posts[0].title).toBe('2025');
+    expect(posts[0].summary).toBe('42');
+  });
+
+  it('skips a post with broken front matter every time it is read', async () => {
+    const BROKEN = '---\ntitle: - Blogas\n  yaml: [\n---\n\nT\n';
+    vi.mocked(readdir).mockResolvedValue(['blogas.md'] as any);
+    vi.mocked(readFile).mockResolvedValue(BROKEN as any);
+    expect(await readAllPosts()).toEqual([]);
+    expect(await readAllPosts()).toEqual([]);
+  });
+});
+
 describe('readPostBySlug', () => {
   it('returns null when file does not exist', async () => {
     vi.mocked(readFile).mockRejectedValue(new Error('ENOENT'));

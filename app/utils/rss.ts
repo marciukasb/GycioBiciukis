@@ -14,7 +14,7 @@ const IMAGE_TYPES: Record<string, string> = { png: 'image/png', webp: 'image/web
 const imageType = (path: string) => IMAGE_TYPES[path.split('.').pop()?.toLowerCase() ?? ''] ?? 'image/jpeg';
 
 function buildItem(post: BlogPost, siteUrl: string): string {
-  const link = `${siteUrl}/irasai/${post.slug}`;
+  const link = `${siteUrl}/irasai/${encodeURIComponent(post.slug)}/`;
   const lines = [
     `<title>${escapeXml(post.title)}</title>`,
     `<link>${escapeXml(link)}</link>`,
