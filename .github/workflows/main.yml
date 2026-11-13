@@ -3,10 +3,10 @@ on:
     branches:
       - master
   workflow_dispatch:
-name: 🚀 Build
+name: 🚀 Deploy
 jobs:
-  build:
-    name: Build
+  web-deploy:
+    name: Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -24,4 +24,14 @@ jobs:
           npm test -- --run
           npm run build
 
-      # TODO: add deploy step once hosting is decided (see EmberInstruments main.yml for the rsync pattern)
+      - name: Deploy via SFTP 📂
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > /tmp/deploy_key
+          chmod 600 /tmp/deploy_key
+          rsync -avz --delete \
+            -e "ssh -i /tmp/deploy_key -p 65002 -o StrictHostKeyChecking=no" \
+            ./out/ \
+            u429394839@45.84.206.66:/home/u429394839/domains/gyciobiciukis.lt/public_html/
+          rm /tmp/deploy_key
