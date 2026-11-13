@@ -1,0 +1,29 @@
+.nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 720px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid $line;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  span {
+    font-size: 14px;
+    font-weight: 700;
+    color: $amber;
+  }
+
+  &:hover b {
+    text-decoration: underline;
+  }
+}
+
+.older {
+  text-align: right;
+}

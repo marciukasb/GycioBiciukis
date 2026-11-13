@@ -1,0 +1,23 @@
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.chip {
+  padding: 4px 14px;
+  border: 1.5px solid $line;
+  border-radius: 99px;
+  font-size: 15px;
+  font-weight: 700;
+
+  &:hover {
+    border-color: $honey;
+  }
+}
+
+.chipActive {
+  border-color: $honey;
+  background: $honey;
+}

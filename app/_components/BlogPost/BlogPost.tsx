@@ -1,21 +1,16 @@
 import React from "react";
+import type { BlogPost as Post } from "@/app/types/BlogPost";
+import PostMeta from "../Posts/PostMeta";
 import styles from "./BlogPost.module.scss";
 
-type BlogPostProps = {
-  title: string;
-  date: string;
-  description: string;
-};
-
-const BlogPost: React.FC<BlogPostProps> = ({ title, date, description }) => {
+const BlogPost = ({ post }: { post: Post }) => {
   return (
     <article className={styles.blogPost}>
-      <h1>{title}</h1>
-      <p className={styles.date}>{date}</p>
-      <div
-        className={styles.content}
-        dangerouslySetInnerHTML={{ __html: description }}
-      />
+      <h1>{post.title}</h1>
+      <div className={styles.meta}>
+        <PostMeta post={post} />
+      </div>
+      <div className="prose" dangerouslySetInnerHTML={{ __html: post.description }} />
     </article>
   );
 };

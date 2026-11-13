@@ -1,0 +1,9 @@
+.grid {
+  display: grid;
+  gap: 20px;
+
+  @include breakpoint-md {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
