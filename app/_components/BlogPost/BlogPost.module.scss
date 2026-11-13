@@ -1,0 +1,23 @@
+.blogPost {
+  max-width: 760px;
+}
+
+.date {
+  margin-top: -16px;
+  margin-bottom: 32px;
+  font-size: 14px;
+}
+
+.content {
+  line-height: 1.7;
+
+  p,
+  ul,
+  ol {
+    margin-bottom: 16px;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}

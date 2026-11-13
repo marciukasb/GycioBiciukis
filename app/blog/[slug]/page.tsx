@@ -1,0 +1,34 @@
+import BlogPost from '../../_components/BlogPost/BlogPost';
+import { readAllPosts, readPostBySlug } from '../../utils/blog';
+import { notFound } from 'next/navigation';
+
+export const dynamicParams = false;
+
+export const metadata = {
+  title: 'Post',
+  description: 'Latest post from Gyčio Bičiukis',
+};
+
+type PostProps = {
+  params: { slug: string };
+};
+
+export async function generateStaticParams() {
+  const posts = await readAllPosts();
+  if (posts.length === 0) return [{ slug: '_empty' }];
+  return posts.map(post => ({ slug: post.slug }));
+}
+
+export default async function Post({ params }: PostProps) {
+  const post = await readPostBySlug(params.slug);
+  if (!post) return notFound();
+  return (
+    <main>
+      <BlogPost
+        title={post.title}
+        date={post.date}
+        description={post.description}
+      />
+    </main>
+  );
+}
