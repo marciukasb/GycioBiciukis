@@ -1,0 +1,11 @@
+.empty {
+  padding: 28px 20px;
+  border: 2px dashed $line;
+  border-radius: 12px;
+  text-align: center;
+  color: $inkSoft;
+
+  :global(.hand) {
+    font-size: 28px;
+  }
+}

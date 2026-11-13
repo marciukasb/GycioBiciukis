@@ -1,0 +1,13 @@
+.tag {
+  display: inline-block;
+  padding: 1px 10px;
+  border-radius: 99px;
+  background: rgba($honey, 0.25);
+  color: $ink;
+  font-size: 13px;
+  font-weight: 700;
+
+  &:hover {
+    background: $honey;
+  }
+}

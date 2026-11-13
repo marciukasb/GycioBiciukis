@@ -1,0 +1,10 @@
+.intro {
+  max-width: 640px;
+  margin-bottom: 40px;
+  font-size: 19px;
+
+  @include breakpoint-md {
+    margin-left: 220px;
+    font-size: 21px;
+  }
+}

@@ -1,0 +1,67 @@
+.hero {
+  position: relative;
+  margin-bottom: 64px;
+
+  @include breakpoint-md {
+    margin-bottom: 80px;
+  }
+
+  &__photo {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    min-height: 300px;
+    padding: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(160deg, #d8b071, #8a6236 70%, #5e4024);
+    background-size: cover;
+    background-position: center;
+
+    @include breakpoint-md {
+      min-height: 460px;
+      padding: 36px;
+    }
+
+    // Keeps the headline readable over any photo
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(#20140a, 0.6), transparent 60%);
+    }
+  }
+
+  &__title {
+    position: relative;
+    z-index: 1;
+    max-width: 60%;
+    margin: 0;
+    color: $card;
+    text-align: right;
+    font-size: 26px;
+
+    @include breakpoint-md {
+      max-width: 520px;
+      font-size: 46px;
+    }
+  }
+
+  &__logo {
+    position: absolute;
+    left: 12px;
+    bottom: -44px;
+    width: 120px;
+    height: 120px;
+    transform: rotate(-8deg);
+    filter: drop-shadow(0 6px 10px rgba(#20140a, 0.35));
+
+    @include breakpoint-md {
+      left: 32px;
+      bottom: -56px;
+      width: 170px;
+      height: 170px;
+    }
+  }
+}
