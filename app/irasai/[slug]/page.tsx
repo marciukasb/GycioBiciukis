@@ -6,8 +6,6 @@ import { SITE_NAME } from "../../_data/site";
 import { readAllPosts, readPostBySlug } from "../../utils/blog";
 import { adjacentPosts } from "../../utils/posts";
 
-export const dynamicParams = false;
-
 type PostProps = {
   params: { slug: string };
 };

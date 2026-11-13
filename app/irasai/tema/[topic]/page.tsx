@@ -7,8 +7,6 @@ import TopicFilter from "../../../_components/Posts/TopicFilter";
 import { readAllPosts } from "../../../utils/blog";
 import { postsByTopic } from "../../../utils/posts";
 
-export const dynamicParams = false;
-
 type TopicProps = {
   params: { topic: string };
 };
