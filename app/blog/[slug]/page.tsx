@@ -6,7 +6,7 @@ export const dynamicParams = false;
 
 export const metadata = {
   title: 'Post',
-  description: 'Latest post from Gyčio Bičiukis',
+  description: 'Latest post from Gyčio Bičiūkis',
 };
 
 type PostProps = {

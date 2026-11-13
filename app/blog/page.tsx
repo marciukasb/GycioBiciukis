@@ -3,7 +3,7 @@ import { readAllPosts } from '../utils/blog';
 
 export const metadata = {
   title: 'Blog',
-  description: 'Latest posts from Gyčio Bičiukis',
+  description: 'Latest posts from Gyčio Bičiūkis',
 };
 
 export default async function Blog() {

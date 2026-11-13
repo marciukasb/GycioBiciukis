@@ -1,4 +1,4 @@
-# Gyčio Bičiukis
+# Gyčio Bičiūkis
 
 Website for a beekeeping hobby/business. Next.js 14 (App Router) static export, SCSS modules, Vitest.
 

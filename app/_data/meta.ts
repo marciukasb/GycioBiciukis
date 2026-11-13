@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-export const SITE_NAME = "Gyčio Bičiukis";
+export const SITE_NAME = "Gyčio Bičiūkis";
 
 interface PageData {
   [key: string]: Metadata;
