@@ -1,4 +1,7 @@
+import Link from "next/link";
 import pageData from "./_data/meta";
+import Logo from "./_components/Logo/Logo";
+import styles from "./not-found.module.scss";
 
 const page = pageData["404"];
 
@@ -9,8 +12,13 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <main>
-      <h1>Not Found</h1>
+    <main className={styles.notFound}>
+      <Logo size={120} className={styles.logo} />
+      <h1>Puslapis nerastas</h1>
+      <p className="hand">Atrodo, ši bitė nuskrido kitur.</p>
+      <Link href="/" className={styles.home}>
+        Grįžti į pradžią
+      </Link>
     </main>
   );
 }

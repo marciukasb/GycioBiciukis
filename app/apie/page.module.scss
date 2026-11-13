@@ -1,0 +1,10 @@
+.photo {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 0 32px;
+  padding: 10px 10px 36px;
+  background: $card;
+  box-shadow: 0 6px 20px rgba($ink, 0.15);
+  transform: rotate(-1.5deg);
+}
