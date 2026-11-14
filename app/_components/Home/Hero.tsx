@@ -11,7 +11,7 @@ const Hero = () => {
       >
         <h1 className={styles.hero__title}>{TAGLINE}</h1>
       </div>
-      <Logo size={150} className={styles.hero__logo} />
+      <Logo size={230} className={styles.hero__logo} />
     </section>
   );
 };
