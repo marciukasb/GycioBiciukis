@@ -2,6 +2,7 @@ import { readFile } from 'fs/promises';
 import { join } from 'path';
 import matter from 'gray-matter';
 import { markdown } from './blog';
+import { assetPath } from './assetPath';
 
 const DATA_DIR = join(process.cwd(), 'app/_data');
 
@@ -28,7 +29,7 @@ export async function readStats(): Promise<Stats> {
 export async function readAbout(): Promise<About> {
   try {
     const { data, content } = matter(await readFile(join(DATA_DIR, 'about.md'), 'utf-8'), {});
-    return { html: markdown.parse(content) as string, photo: (data.photo as string) ?? '' };
+    return { html: markdown.parse(content) as string, photo: assetPath((data.photo as string) ?? '') };
   } catch {
     return { html: '', photo: '' };
   }

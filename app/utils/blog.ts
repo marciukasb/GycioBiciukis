@@ -5,6 +5,7 @@ import { Marked } from 'marked';
 import type { BlogPost } from '../types/BlogPost';
 import { formatDate } from './index';
 import { galleryOutsideBody } from './photos';
+import { assetPath } from './assetPath';
 
 const BLOG_DIR = join(process.cwd(), 'app/_data/_blog');
 
@@ -15,7 +16,7 @@ const escapeAttr = (value: string) =>
 export const markdown = new Marked({
   renderer: {
     image({ href, text }) {
-      const src = escapeAttr(href);
+      const src = escapeAttr(assetPath(href));
       return `<a href="${src}" class="post-image-link" target="_blank" rel="noopener"><img src="${src}" alt="${escapeAttr(text)}" loading="lazy"></a>`;
     },
   },
@@ -50,9 +51,9 @@ function parsePost(slug: string, raw: string): BlogPost {
     isoDate,
     topic: text(data.topic),
     // The first gallery photo is the cover; older posts may still have a thumbnail field
-    thumbnail: photos[0] ?? text(data.thumbnail),
-    photos,
-    galleryPhotos: galleryOutsideBody(photos.slice(1), content),
+    thumbnail: assetPath(photos[0] ?? text(data.thumbnail)),
+    photos: photos.map(p => assetPath(p)),
+    galleryPhotos: galleryOutsideBody(photos.slice(1), content).map(p => assetPath(p)),
   };
 }
 

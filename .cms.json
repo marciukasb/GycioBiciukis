@@ -1,5 +1,5 @@
 {
-  "deployWorkflow": "main.yml",
+  "deployWorkflow": "pages.yml",
   "collections": [
     {
       "name": "Įrašai",

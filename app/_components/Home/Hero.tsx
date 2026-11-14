@@ -1,4 +1,5 @@
 import { HERO_IMAGE, TAGLINE } from "@/app/_data/site";
+import { assetPath } from "@/app/utils/assetPath";
 import Logo from "../Logo/Logo";
 import styles from "./Hero.module.scss";
 
@@ -7,7 +8,7 @@ const Hero = () => {
     <section className={styles.hero}>
       <div
         className={styles.hero__photo}
-        style={HERO_IMAGE ? { backgroundImage: `url(${HERO_IMAGE})` } : undefined}
+        style={HERO_IMAGE ? { backgroundImage: `url(${assetPath(HERO_IMAGE)})` } : undefined}
       >
         <h1 className={styles.hero__title}>{TAGLINE}</h1>
       </div>

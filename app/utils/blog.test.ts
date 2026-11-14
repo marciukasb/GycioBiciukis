@@ -211,3 +211,21 @@ describe('readPostBySlug', () => {
     expect(post!.description).toContain('<p>');
   });
 });
+
+describe('base path (GitHub Pages preview)', () => {
+  it('prefixes cover, gallery and body photos', async () => {
+    vi.stubEnv('NEXT_PUBLIC_BASE_PATH', '/GycioBiciukis');
+    vi.resetModules();
+    const fs = await import('fs/promises');
+    vi.mocked(fs.readdir).mockResolvedValue(['p.md'] as any);
+    vi.mocked(fs.readFile).mockResolvedValue(
+      '---\ntitle: P\nphotos:\n  - /images/a.jpg\n  - /images/b.jpg\n  - /images/c.jpg\n---\n\n![x](/images/c.jpg)\n' as any,
+    );
+    const { readAllPosts: read } = await import('./blog');
+    const [post] = await read();
+    expect(post.thumbnail).toBe('/GycioBiciukis/images/a.jpg');
+    expect(post.galleryPhotos).toEqual(['/GycioBiciukis/images/b.jpg']);
+    expect(post.description).toContain('<img src="/GycioBiciukis/images/c.jpg"');
+    vi.unstubAllEnvs();
+  });
+});
