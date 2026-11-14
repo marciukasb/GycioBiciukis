@@ -23,13 +23,15 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Build 🔨
-        env:
-          NEXT_PUBLIC_BASE_PATH: /GycioBiciukis
+      - name: Test 🧪
         run: |
           npm ci
           npm test -- --run
-          npm run build
+
+      - name: Build 🔨
+        env:
+          NEXT_PUBLIC_BASE_PATH: /GycioBiciukis
+        run: npm run build
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
